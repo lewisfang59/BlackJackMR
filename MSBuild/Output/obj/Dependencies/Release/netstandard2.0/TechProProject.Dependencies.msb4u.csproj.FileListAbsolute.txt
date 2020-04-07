@@ -1,2 +1,4 @@
 C:\Users\Mike\Desktop\git\BlackJackMR\Assets\Dependencies\netstandard2.0\TechProProject.Dependencies.msb4u.deps.json
 C:\Users\Mike\Desktop\git\BlackJackMR\MSBuild\Output\obj\Dependencies\Release\netstandard2.0\TechProProject.Dependencies.msb4u.csprojAssemblyReference.cache
+C:\Users\Flemming\Desktop\TechPro\BlackJackMR\Assets\Dependencies\netstandard2.0\TechProProject.Dependencies.msb4u.deps.json
+C:\Users\Flemming\Desktop\TechPro\BlackJackMR\MSBuild\Output\obj\Dependencies\Release\netstandard2.0\TechProProject.Dependencies.msb4u.csprojAssemblyReference.cache

@@ -2,9 +2,9 @@
   
   <!-- These are specific to this Unity project and can't be overridden -->
   <PropertyGroup>
-    <UnityProjectAssetsPath>C:\Users\Mike\Desktop\git\BlackJackMR\Assets</UnityProjectAssetsPath>
+    <UnityProjectAssetsPath>C:\Users\Flemming\Desktop\TechPro\BlackJackMR\Assets</UnityProjectAssetsPath>
     
-    <_MSBuildForUnityGeneratedOutputDirectory>C:\Users\Mike\Desktop\git\BlackJackMR\MSBuild</_MSBuildForUnityGeneratedOutputDirectory>
+    <_MSBuildForUnityGeneratedOutputDirectory>C:\Users\Flemming\Desktop\TechPro\BlackJackMR\MSBuild</_MSBuildForUnityGeneratedOutputDirectory>
     <MSBuildForUnityGeneratedProjectDirectory>$(_MSBuildForUnityGeneratedOutputDirectory)\Projects</MSBuildForUnityGeneratedProjectDirectory>
   </PropertyGroup>
   
