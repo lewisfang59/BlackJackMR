@@ -1,21 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mike\\Desktop\\git\\BlackJackMR\\Assets\\TechProProject.Dependencies.msb4u.csproj": {}
+    "C:\\Users\\Flemming\\Desktop\\TechPro\\BlackJackMR\\Assets\\TechProProject.Dependencies.msb4u.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mike\\Desktop\\git\\BlackJackMR\\Assets\\TechProProject.Dependencies.msb4u.csproj": {
+    "C:\\Users\\Flemming\\Desktop\\TechPro\\BlackJackMR\\Assets\\TechProProject.Dependencies.msb4u.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mike\\Desktop\\git\\BlackJackMR\\Assets\\TechProProject.Dependencies.msb4u.csproj",
+        "projectUniqueName": "C:\\Users\\Flemming\\Desktop\\TechPro\\BlackJackMR\\Assets\\TechProProject.Dependencies.msb4u.csproj",
         "projectName": "TechProProject.Dependencies.msb4u",
-        "projectPath": "C:\\Users\\Mike\\Desktop\\git\\BlackJackMR\\Assets\\TechProProject.Dependencies.msb4u.csproj",
-        "packagesPath": "C:\\Users\\Mike\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mike\\Desktop\\git\\BlackJackMR\\MSBuild\\Output\\obj\\Dependencies\\",
+        "projectPath": "C:\\Users\\Flemming\\Desktop\\TechPro\\BlackJackMR\\Assets\\TechProProject.Dependencies.msb4u.csproj",
+        "packagesPath": "C:\\Users\\Flemming\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Flemming\\Desktop\\TechPro\\BlackJackMR\\MSBuild\\Output\\obj\\Dependencies\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Mike\\Desktop\\git\\BlackJackMR\\Assets\\NuGet.Config",
-          "C:\\Users\\Mike\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Flemming\\Desktop\\TechPro\\BlackJackMR\\Assets\\NuGet.Config",
+          "C:\\Users\\Flemming\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
