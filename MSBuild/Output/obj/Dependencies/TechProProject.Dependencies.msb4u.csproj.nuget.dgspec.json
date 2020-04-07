@@ -1,10 +1,10 @@
 {
   "format": 1,
   "restore": {
-    "F:\\workspace\\Unity\\TechProProject\\Assets\\TechProProject.Dependencies.msb4u.csproj": {}
+    "C:\\Users\\Flemming\\Desktop\\TechPro\\BlackJackMR\\Assets\\TechProProject.Dependencies.msb4u.csproj": {}
   },
   "projects": {
-    "F:\\workspace\\Unity\\TechProProject\\Assets\\MixedRealityToolkit.Providers\\WindowsMixedReality\\Shared\\DotNetAdapter\\DotNetAdapter.csproj": {
+    "C:\\Users\\Flemming\\Desktop\\TechPro\\BlackJackMR\\Assets\\TechProProject.Dependencies.msb4u.csproj": {
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "F:\\workspace\\Unity\\TechProProject\\Assets\\MixedRealityToolkit.Providers\\WindowsMixedReality\\Shared\\DotNetAdapter\\DotNetAdapter.csproj",
@@ -58,20 +58,17 @@
       "restore": {
         "projectUniqueName": "F:\\workspace\\Unity\\TechProProject\\Assets\\TechProProject.Dependencies.msb4u.csproj",
         "projectName": "TechProProject.Dependencies.msb4u",
-        "projectPath": "F:\\workspace\\Unity\\TechProProject\\Assets\\TechProProject.Dependencies.msb4u.csproj",
-        "packagesPath": "C:\\Users\\fang3\\.nuget\\packages\\",
-        "outputPath": "F:\\workspace\\Unity\\TechProProject\\MSBuild\\Output\\obj\\Dependencies\\",
+        "projectPath": "C:\\Users\\Flemming\\Desktop\\TechPro\\BlackJackMR\\Assets\\TechProProject.Dependencies.msb4u.csproj",
+        "packagesPath": "C:\\Users\\Flemming\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Flemming\\Desktop\\TechPro\\BlackJackMR\\MSBuild\\Output\\obj\\Dependencies\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "F:\\workspace\\Unity\\TechProProject\\Assets\\NuGet.Config",
-          "C:\\Users\\fang3\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Flemming\\Desktop\\TechPro\\BlackJackMR\\Assets\\NuGet.Config",
+          "C:\\Users\\Flemming\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net46"
+          "netstandard2.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -79,13 +76,8 @@
           "https://pkgs.dev.azure.com/UnityDeveloperTools/MSBuildForUnity/_packaging/UnityDeveloperTools/nuget/v3/index.json": {}
         },
         "frameworks": {
-          "net46": {
-            "projectReferences": {
-              "F:\\workspace\\Unity\\TechProProject\\Assets\\MixedRealityToolkit.Providers\\WindowsMixedReality\\Shared\\DotNetAdapter\\DotNetAdapter.csproj": {
-                "projectPath": "F:\\workspace\\Unity\\TechProProject\\Assets\\MixedRealityToolkit.Providers\\WindowsMixedReality\\Shared\\DotNetAdapter\\DotNetAdapter.csproj",
-                "privateAssets": "analyzers"
-              }
-            }
+          "netstandard2.0": {
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -95,13 +87,19 @@
         }
       },
       "frameworks": {
-        "net46": {
+        "netstandard2.0": {
           "dependencies": {
             "MSBuildForUnity": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
               "suppressParent": "Analyzers",
               "target": "Package",
               "version": "[0.9.1-*, 0.9.1]"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "Analyzers",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
