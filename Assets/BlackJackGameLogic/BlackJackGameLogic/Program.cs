@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace BlackJackGameLogic
 {
-    class Program
-    {
+    //class Program
+    //{
         
 
-        static void Main(string[] args)
-        {
-            GameLauncher.gameLaunch();
-            Console.ReadKey();
+    //    static void Main(string[] args)
+    //    {
+    //        GameLauncher.gameLaunch();
+    //        Console.ReadKey();
 
-        }
-    }
+    //    }
+    //}
 }
