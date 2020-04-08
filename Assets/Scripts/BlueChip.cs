@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class BlueChip : MonoBehaviour
 {
-    [SerializeField]
+    
     private GameObject blueChip;
     [SerializeField]
     private int chipValue = 5;
@@ -14,6 +14,7 @@ public class BlueChip : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        blueChip = Resources.Load<GameObject>("ChipsPrefab/bluechip");
         for (int i = 0; i < 6; i++)
         {
             GameObject gameChip = Instantiate(blueChip, transform.position, transform.rotation);
