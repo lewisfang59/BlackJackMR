@@ -37,7 +37,9 @@ public class GameHandler : MonoBehaviour
         
     }
     
-
+    /// <summary>
+    /// Reset game objects to starting state
+    /// </summary>
     private void ResetGame()
     {
         deck = new Deck(cardPrefab);
@@ -120,7 +122,7 @@ public class GameHandler : MonoBehaviour
         playerSpawnerPosition.z += 0.2f;
 
         playerHand.Add(DrawOneCard(playerCardSpawner, playerSpawnerPosition));
-        playerPoint = CalculatePoint(playerHand);
+        playerPoint = CalculatePoints(playerHand);
 
         if(!isFirstRound)
         {
@@ -140,7 +142,7 @@ public class GameHandler : MonoBehaviour
         dealerSpawnerPosition.x += 0.2f;
 
         dealerHand.Add(DrawOneCard(dealerCardSpawner, dealerSpawnerPosition));
-        dealerPoint = CalculatePoint(dealerHand);
+        dealerPoint = CalculatePoints(dealerHand);
     }
 
     public void PlayerEndTurn()
@@ -168,7 +170,7 @@ public class GameHandler : MonoBehaviour
         }
     }
 
-    private int CalculatePoint(List<Card> userHand)
+    private int CalculatePoints(List<Card> userHand)
     {
         int userPoint = 0;
 
@@ -222,6 +224,8 @@ public class GameHandler : MonoBehaviour
         btnHit.SetActive(activate);
         btnPass.SetActive(activate);
     }
+
+    ////////////////////////////////////////////////// Below is undone 
 
     private void PlayerWin()
     {
