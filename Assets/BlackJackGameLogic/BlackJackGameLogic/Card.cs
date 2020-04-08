@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace BlackJackGameLogic
 {
@@ -31,20 +32,21 @@ namespace BlackJackGameLogic
     /// </summary>
     public enum CardSuit
     {
-        hearts = 1,
-        spades = 2,
-        clubs = 3,
-        diamonds = 4
+        clubs = 1,
+        diamonds = 2,
+        hearts = 3,
+        spades = 4
     }
 
     /// <summary>
     /// card class for creating each card
     /// </summary>
-    class Card
+    public class Card
     {
 
         private CardValue cardValue;
         private CardSuit cardSuit;
+        private GameObject cardPrefab;
 
         /// <summary>
         /// property for retrieving and setting the value of card
@@ -64,14 +66,59 @@ namespace BlackJackGameLogic
             set { this.cardSuit = value; }
         }
 
+        public GameObject CardPrefab
+        {
+            get
+            {
+                return cardPrefab;
+            }
+            set
+            {
+                cardPrefab = value;
+            }
+        }
+
         /// <summary>
         /// initiator for creating a card object
         /// </summary>
-        public Card()
+        public Card(int value, GameObject prefab)
         {
-            cardValue = 0;
+            cardValue = getCardValue(value);
             cardSuit = 0;
+            cardPrefab = prefab;
         }
-       
+
+        public CardValue getCardValue(int value)
+        {
+            switch (value)
+            {
+                case (1):
+                    return CardValue.ace;
+                case (2):
+                    return CardValue.two;
+                case (3):
+                    return CardValue.three;
+                case (4):
+                    return CardValue.four;
+                case (5):
+                    return CardValue.five;
+                case (6):
+                    return CardValue.six;
+                case (7):
+                    return CardValue.seven;
+                case (8):
+                    return CardValue.eight;
+                case (9):
+                    return CardValue.nine;
+                case (10):
+                    return CardValue.ten;
+                case (11):
+                    return CardValue.jack;
+                case (12):
+                    return CardValue.queen;
+                    
+            }
+            return CardValue.king;
+        }
     }
 }
