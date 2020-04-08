@@ -609,6 +609,71 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1112365785
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1112365786}
+  - component: {fileID: 1112365787}
+  - component: {fileID: 1112365788}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1112365786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112365785}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.899, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1116111984}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1112365787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112365785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf2bfa1e31eb9c14d83fc0c956e50ca2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btnHit: {fileID: 0}
+  btnPass: {fileID: 0}
+  btnBet: {fileID: 0}
+  sliderBet: {fileID: 0}
+  betLabel: {fileID: 0}
+  playerCardSpawner: {fileID: 0}
+  dealerCardSpawner: {fileID: 0}
+  cardPrefab: []
+  chipPrefab: {fileID: 0}
+--- !u!114 &1112365788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112365785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c280735e12cba16478c7c3d4dd909c22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1116111983
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,11 +698,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1116111983}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1312421, y: -2.6269917, z: 4.631502}
+  m_LocalPosition: {x: 0.1312421, y: -2.6269917, z: 5.477}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1675616007}
   - {fileID: 1177358935}
+  - {fileID: 1112365786}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -684,7 +750,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809e95d6c5d692145a6ac665399f61db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blueChip: {fileID: 100000, guid: cbb76c75c84141f44a3837df0b9f5f23, type: 3}
   chipValue: 5
 --- !u!1 &1243712134
 GameObject:

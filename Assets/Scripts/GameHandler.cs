@@ -9,13 +9,15 @@ using UnityEngine;
 public class GameHandler : MonoBehaviour
 
 {
-    [SerializeField]
-    private GameObject btnHit, btnPass, btnBet, sliderBet, betLabel, playerCardSpawner, dealerCardSpawner, gameChips;
+    private GameObject gameChips;
 
+
+    [SerializeField]
+    private GameObject btnHit, btnPass, btnBet, sliderBet, betLabel, playerCardSpawner, dealerCardSpawner;
     [SerializeField]
     GameObject[] cardPrefab;
     [SerializeField]
-    GameObject[] chipPrefab;
+    GameObject chipPrefab;
 
     private Chip chip;
     private Deck deck;
@@ -31,9 +33,10 @@ public class GameHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject cPrefab = Resources.Load<GameObject>("ChipsPrefab/bluechip");
+        BetChips(5, cPrefab);
         ResetGame();
     }
-
 
     // Update is called once per frame
     void Update()
@@ -46,8 +49,7 @@ public class GameHandler : MonoBehaviour
     /// </summary>
     private void ResetGame()
     {
-        GameObject chippy = Resources.Load<GameObject>("ChipsPrefab/bluechip");
-        chip = new Chip(chippy);
+        
         //deck = new Deck(cardPrefab);
 
         //// Card spawning position
@@ -62,8 +64,9 @@ public class GameHandler : MonoBehaviour
 
         //ActivateHitPassButtons(false);
 
-        //test
-        //chip.BetChips(100, chippy);
+       
+        
+        //chip.RoundResult(5, true, chip.ChipPrefab);
     }
 
 
@@ -260,6 +263,38 @@ public class GameHandler : MonoBehaviour
     //        Destroy(gameChips);
     //    }
     //}
+
+    public void BetChips(int betAmount, GameObject chipPrefab)
+    {
+        int numChips = betAmount / 5;
+        for (int i = 0; i < numChips; i++)
+        {
+            gameChips = Instantiate(chipPrefab, transform.position, transform.rotation);
+            gameChips.AddComponent<BoxCollider>();
+            gameChips.AddComponent<Rigidbody>();
+        }
+
+    }
+
+    public void RoundResult(int betAmount, bool roundResult, GameObject chipPrefab)
+    {
+        int numChips = betAmount / 5;
+        if (roundResult)
+        {
+            for (int i = 0; i < numChips; i++)
+            {
+                gameChips = Instantiate(chipPrefab, transform.position, transform.rotation);
+                gameChips.AddComponent<BoxCollider>();
+                gameChips.AddComponent<Rigidbody>();
+            }
+        }
+        else
+        {
+            Debug.Log("attempting to destroy");
+            //Destroy(gameObject);
+            Destroy(this);
+        }
+    }
 
 
     //private bool PlayerWin()

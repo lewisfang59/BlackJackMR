@@ -28,7 +28,7 @@ public class Chip : MonoBehaviour
     public void BetChips(int betAmount, GameObject chipPrefab)
     {
         int numChips = betAmount / 5;
-        for (int i = 0; i <= numChips; i++)
+        for (int i = 0; i < numChips; i++)
         {
             gameChips = Instantiate(chipPrefab, transform.position, transform.rotation);
             gameChips.AddComponent<BoxCollider>();
@@ -42,7 +42,7 @@ public class Chip : MonoBehaviour
         int numChips = betAmount / 5;
         if (roundResult)
         {
-            for (int i = 0; i <= numChips; i++)
+            for (int i = 0; i < numChips; i++)
             {
                 gameChips = Instantiate(chipPrefab, transform.position, transform.rotation);
                 gameChips.AddComponent<BoxCollider>();
@@ -56,12 +56,12 @@ public class Chip : MonoBehaviour
             Destroy(this);
         }
     }
-    void Start()
-    {
-        BetChips(100, Resources.Load<GameObject>("ChipsPrefab/bluechip"));
-    }
-    void Update()
-    {
-        RoundResult(100, false, Resources.Load<GameObject>("ChipsPrefab/bluechip"));
-    }
+    //void Start()
+    //{
+    //    BetChips(100, Resources.Load<GameObject>("ChipsPrefab/bluechip"));
+    //}
+    //void Update()
+    //{
+    //    RoundResult(100, false, Resources.Load<GameObject>("ChipsPrefab/bluechip"));
+    //}
 }
