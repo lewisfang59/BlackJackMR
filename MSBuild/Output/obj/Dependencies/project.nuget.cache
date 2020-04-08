@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "3I5TsCTpNqipRG4+lmhAZpgGSDrLwNdNisIds7AmQnXtjq08zDV72fMuid14rKyd88M0Dp/43YiCHQpRIlxQXA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Mike\\Desktop\\git\\BlackJackMR\\Assets\\TechProProject.Dependencies.msb4u.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Mike\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Mike\\.nuget\\packages\\msbuildforunity\\0.9.1-123842\\msbuildforunity.0.9.1-123842.nupkg.sha512",
+    "C:\\Users\\Mike\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
