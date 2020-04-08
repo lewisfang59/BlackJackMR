@@ -1,49 +1,55 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using BlackJackGameLogic;
+﻿using BlackJackGameLogic;
 using Microsoft.MixedReality.Toolkit.Input;
 using Microsoft.MixedReality.Toolkit.UI;
+using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
 
 public class GameHandler : MonoBehaviour
 {
     [SerializeField]
-    private GameObject btnHit, btnPass, btnBet, sliderBet, betLabel, playerCardSpawner, dealerCardSpawner;
+    private GameObject btnHit, btnPass, btnBet, sliderBet, betLabel, playerCardSpawner, dealerCardSpawner, playerStackLabel, btnContinue, winStatusLabel;
 
     [SerializeField]
     GameObject[] cardPrefab;
 
     private Deck deck;
     private List<Card> playerHand, dealerHand;
+    private TextMeshPro playerStackTMP;
     private Vector3 playerSpawnerPosition, dealerSpawnerPosition;
     private int startingMoney, playerPoint, dealerPoint, betAmount;
+    private string playerStackLabelText;
+
+    private const string stackLabelIntro = "Money $";
 
     private void Awake()
     {
         startingMoney = 500;
+        deck = new Deck(cardPrefab);
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        playerStackTMP = playerStackLabel.GetComponent<TextMeshPro>();
         ResetGame();
+
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        // playerStackTMP.text = stackLabelIntro + startingMoney.ToString();
         
     }
+
     
     /// <summary>
     /// Reset game objects to starting state
     /// </summary>
-    private void ResetGame()
+    public void ResetGame()
     {
-        deck = new Deck(cardPrefab);
-
         // Card spawning position
         playerSpawnerPosition = playerCardSpawner.transform.position;
         dealerSpawnerPosition = dealerCardSpawner.transform.position;
@@ -56,6 +62,7 @@ public class GameHandler : MonoBehaviour
 
         ActivateSliderBetObjects(true);
         ActivateHitPassButtons(false);
+        ActivateGameStatus(false);
     }
 
     
@@ -128,7 +135,7 @@ public class GameHandler : MonoBehaviour
         {
             if (playerPoint > 21)
             {
-                DealerWin();
+                PlayerBusted();
             }
             else if (playerPoint == 21)
             {
@@ -170,26 +177,16 @@ public class GameHandler : MonoBehaviour
         }
     }
 
+    // TODO add situation if user get 2 aces if have time.
     private int CalculatePoints(List<Card> userHand)
     {
         int userPoint = 0;
 
         foreach(Card card in userHand)
         {
-            int cardVal = (int)card.Value;
+            CardValue cardVal = card.Value;
 
-            if (cardVal >= 10)
-            {
-                userPoint += 10;
-            } 
-            else if (cardVal == 1)
-            {
-                userPoint += 11;
-            }
-            else
-            {
-                userPoint += cardVal;
-            }
+            userPoint += getCardValueToAdd(cardVal, false);
         }
 
         if(userPoint > 21)
@@ -198,19 +195,30 @@ public class GameHandler : MonoBehaviour
 
             foreach (Card card in userHand)
             {
-                if(card.Value == CardValue.ace)
-                {
-                    userPoint += 1;
-                } else
-                {
-                    userPoint += (int)card.Value;
-                }
+                userPoint += getCardValueToAdd(card.Value, true);
             }
         }
 
         Debug.Log(userPoint + " Point");
 
         return userPoint;
+    }
+
+    private int getCardValueToAdd(CardValue cardVal, bool exceededMax)
+    {
+        if (cardVal == CardValue.ten
+                || cardVal == CardValue.jack
+                || cardVal == CardValue.queen
+                || cardVal == CardValue.king)
+        {
+            return 10;
+        }
+        else if (cardVal == CardValue.ace)
+        {
+            return exceededMax ? 1 : 11;
+        }
+
+        return (int)cardVal;
     }
 
     private void ActivateSliderBetObjects(bool activate)
@@ -225,39 +233,57 @@ public class GameHandler : MonoBehaviour
         btnPass.SetActive(activate);
     }
 
+    private void ActivateGameStatus(bool activate)
+    {
+        btnContinue.SetActive(activate);
+        winStatusLabel.SetActive(activate);
+    }
+
     ////////////////////////////////////////////////// Below is undone 
+
+    private void PlayerBusted()
+    {
+        string status = "Your busted!";
+        startingMoney -= betAmount;
+
+        DestroyCardsInHand();
+        DisplayGameStatus(status);
+    }
 
     private void PlayerWin()
     {
+        string status = "Player win!";
         startingMoney += betAmount;
-        Debug.Log("Player win!");
 
-        //ResetGame();
+        DestroyCardsInHand();
+        DisplayGameStatus(status);
     }
 
     private void DealerWin()
     {
-        Debug.Log("Dealer win!");
+        string status = "Dealer win..";
+        startingMoney -= betAmount;
+
+        DestroyCardsInHand();
+        DisplayGameStatus(status);
     }
 
     private void NoOneWin()
     {
-        Debug.Log("Nobody win!");
-    }
+        string status = "It's a tie!";
 
-    private void EndGame()
-    {
-        
-    }
-
-    private void NewRound()
-    {
         DestroyCardsInHand();
+        DisplayGameStatus(status);
+    }
 
-        sliderBet.SetActive(true);
-        btnBet.SetActive(true);
-        btnHit.SetActive(false);
-        btnPass.SetActive(false);
+    private void DisplayGameStatus(string status)
+    {
+        string handsInfo = playerPoint + " vs " + dealerPoint;
+
+        ActivateHitPassButtons(false);
+        ActivateGameStatus(true);
+
+        winStatusLabel.GetComponent<TextMeshPro>().text = handsInfo + "\n" + status;
     }
 
     private void DestroyCardsInHand()
@@ -271,6 +297,13 @@ public class GameHandler : MonoBehaviour
             Destroy(c);
         }
 
-        // TODO Destroy dealer hand
+        var dealerCards = dealerCardSpawner.GetComponentsInChildren<NearInteractionGrabbable>(true);
+
+        foreach (var obj in dealerCards)
+        {
+            GameObject c = (obj as NearInteractionGrabbable).gameObject;
+
+            Destroy(c);
+        }
     }
 }
