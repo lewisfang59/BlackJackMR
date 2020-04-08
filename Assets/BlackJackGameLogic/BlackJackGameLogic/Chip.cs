@@ -17,11 +17,11 @@ namespace BlackJackGameLogic
 
     public enum ChipColor
     {
-        white = 1,
-        red = 2,
+        blue = 1,
+        bluesky = 2,
         green = 3,
-        black = 4,
-        purple = 5
+        orange = 4,
+        pink = 5
     }
     class Chip
     {
