@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace BlackJackGameLogic
 {
@@ -14,44 +15,34 @@ namespace BlackJackGameLogic
             get { return this.cards; } set { this.cards = value; } 
         }
 
-        public void shuffleDeck()
-        {
-            cards.Clear();
-            for(int i = 1; i < 5; i++)
-            {
-                for(int j = 1; j < 14; j++)
-                {
-                    Card card = new Card();
-                    card.Value = (CardValue)j;
-                    card.Suit = (CardSuit)i;
-                    cards.Add(card);
-                }
-            }
-            Random r = new Random(); 
-            cards = cards.OrderBy(x => r.Next()).ToList();
-        }
-
         public void printDeck()
         {
             for (int i = 0; i < cards.Count; i++)
             {
-                Console.WriteLine(cards[i].Value.ToString() + " of " + cards[i].Suit.ToString());
+                Debug.Log(cards[i].Value.ToString() + " of " + cards[i].Suit.ToString());
             }
         }
 
 
-        public Card DealCards(Hand hand)
+        public Card DealRandomCard()
         {
-            Card drawn = cards[cards.Count - 1];
-            cards.Remove(drawn);
-            hand.GetCards.Add(drawn);
+            int index = UnityEngine.Random.Range(0, cards.Count - 1);
+
+            Card drawn = cards[index];
+            cards.RemoveAt(index);
             return drawn;
         }
 
-        public Deck()
+        public Deck(GameObject[] newDeck)
         {
-            Cards = new List<Card>();
-            shuffleDeck();
+            cards = new List<Card>();
+
+            foreach(GameObject obj in newDeck)
+            {
+                String[] values = obj.name.Split('-');
+
+                cards.Add(new Card(System.Int16.Parse(values[0]), obj));
+            }
         }
 
     }
