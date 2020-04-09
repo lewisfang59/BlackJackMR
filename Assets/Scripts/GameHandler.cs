@@ -50,6 +50,12 @@ public class GameHandler : MonoBehaviour
     /// </summary>
     public void ResetGame()
     {
+        if(playerHand != null)
+        {
+            Debug.Log("DESTROYYYYYYYYY");
+            DestroyCardsInHand();
+        }
+
         // Card spawning position
         playerSpawnerPosition = playerCardSpawner.transform.position;
         dealerSpawnerPosition = dealerCardSpawner.transform.position;
@@ -255,7 +261,6 @@ public class GameHandler : MonoBehaviour
         string status = "Player win!";
         startingMoney += betAmount;
 
-        DestroyCardsInHand();
         DisplayGameStatus(status);
     }
 
@@ -264,7 +269,6 @@ public class GameHandler : MonoBehaviour
         string status = "Dealer win..";
         startingMoney -= betAmount;
 
-        DestroyCardsInHand();
         DisplayGameStatus(status);
     }
 
@@ -272,7 +276,6 @@ public class GameHandler : MonoBehaviour
     {
         string status = "It's a tie!";
 
-        DestroyCardsInHand();
         DisplayGameStatus(status);
     }
 
