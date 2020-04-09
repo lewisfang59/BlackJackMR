@@ -4,6 +4,7 @@ using Microsoft.MixedReality.Toolkit.UI;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameHandler : MonoBehaviour
 {
@@ -26,21 +27,26 @@ public class GameHandler : MonoBehaviour
     {
         startingMoney = 500;
         deck = new Deck(cardPrefab);
+        playerStackTMP = playerStackLabel.GetComponent<TextMeshPro>();
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        playerStackTMP = playerStackLabel.GetComponent<TextMeshPro>();
         ResetGame();
-
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        // playerStackTMP.text = stackLabelIntro + startingMoney.ToString();
+
+        if(playerStackTMP != null)
+        {
+            playerStackTMP.text = stackLabelIntro + startingMoney.ToString();
+        }
+        
         
     }
 
@@ -55,6 +61,11 @@ public class GameHandler : MonoBehaviour
             Debug.Log("DESTROYYYYYYYYY");
             DestroyCardsInHand();
         }
+
+        if(deck.Cards.Count < 10)
+        {
+            deck = new Deck(cardPrefab);
+        } 
 
         // Card spawning position
         playerSpawnerPosition = playerCardSpawner.transform.position;
@@ -141,7 +152,7 @@ public class GameHandler : MonoBehaviour
         {
             if (playerPoint > 21)
             {
-                PlayerBusted();
+                PlayerLose("You are busted!");
             }
             else if (playerPoint == 21)
             {
@@ -175,7 +186,7 @@ public class GameHandler : MonoBehaviour
         } 
         else if (dealerPoint > playerPoint)
         {
-            DealerWin();
+            PlayerLose("Dealer wins...");
         } 
         else
         {
@@ -247,13 +258,18 @@ public class GameHandler : MonoBehaviour
 
     ////////////////////////////////////////////////// Below is undone 
 
-    private void PlayerBusted()
+    private void PlayerLose(string statusText)
     {
-        string status = "Your busted!";
         startingMoney -= betAmount;
 
-        DestroyCardsInHand();
-        DisplayGameStatus(status);
+        if (startingMoney < 5)
+        {
+            GameOver();
+        }
+        else
+        {
+            DisplayGameStatus(statusText);
+        }
     }
 
     private void PlayerWin()
@@ -264,19 +280,24 @@ public class GameHandler : MonoBehaviour
         DisplayGameStatus(status);
     }
 
-    private void DealerWin()
-    {
-        string status = "Dealer win..";
-        startingMoney -= betAmount;
-
-        DisplayGameStatus(status);
-    }
-
     private void NoOneWin()
     {
         string status = "It's a tie!";
 
         DisplayGameStatus(status);
+    }
+
+    private void GameOver()
+    {
+        string status = "You are BROKE!";
+
+        DisplayGameStatus(status);
+
+        btnContinue.GetComponent<Interactable>().OnClick.AddListener(delegate
+        {
+            SceneManager.LoadScene(0);
+        }
+        );
     }
 
     private void DisplayGameStatus(string status)
