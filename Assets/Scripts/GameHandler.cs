@@ -34,14 +34,21 @@ public class GameHandler : MonoBehaviour
     void Start()
     {
         GameObject cPrefab = Resources.Load<GameObject>("ChipsPrefab/bluechip");
-        BetChips(5, cPrefab);
+        chip = gameObject.AddComponent<Chip>();
+        chip.ChipPrefab = cPrefab;
+
+
+        //gameChips = new GameObject();
+        //gameChips.AddComponent("Chip");
+        chip.BetChips(5, chip.ChipPrefab);
+        //RoundResult(5, false, chip.ChipPrefab);
         ResetGame();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     /// <summary>
@@ -66,7 +73,7 @@ public class GameHandler : MonoBehaviour
 
        
         
-        //chip.RoundResult(5, true, chip.ChipPrefab);
+        //RoundResult(5, true, chip.ChipPrefab);
     }
 
 
@@ -291,8 +298,10 @@ public class GameHandler : MonoBehaviour
         else
         {
             Debug.Log("attempting to destroy");
+            Debug.Log("attempting to destroy" + chip.name);
+
             //Destroy(gameObject);
-            Destroy(this);
+            Destroy(chip);
         }
     }
 
