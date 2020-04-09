@@ -52,48 +52,39 @@ public class GameHandler : MonoBehaviour
         
     }
 
-    //public void SpawnChips()
-    //{
-    //    //betAmount
-    //    chip = new Chip();
-    //    chipPrefab = Resources.Load<GameObject>("ChipPrefab/bluechip");
-    //    chip.ChipPrefab = chipPrefab;
-    //    gameObj = new GameObject();
-    //    gameObj.AddComponent(chip.ChipPrefab);
-       
-        
-    //}
-
+    /// <summary>
+    /// determines how many chips would show up. varies depening on how much you are betting per round
+    /// </summary>
     public void BetChips()
     {
         int numChips = betAmount / 5;
         for (int i = 0; i < numChips; i++)
         {
-            gameChips = Instantiate(gameChips, chipSpawner.transform.position, chipSpawner.transform.rotation, chipSpawner.transform);
-            gameChips.AddComponent<BoxCollider>();
-            gameChips.AddComponent<Rigidbody>();
-            gameChips.AddComponent<NearInteractionGrabbable>();
-            gameChips.AddComponent<ManipulationHandler>();
+            GameObject bChip = Instantiate(gameChips, chipSpawner.transform.position, chipSpawner.transform.rotation, chipSpawner.transform);
+            bChip.AddComponent<BoxCollider>();
+            bChip.AddComponent<Rigidbody>();
+            bChip.AddComponent<NearInteractionGrabbable>();
+            bChip.AddComponent<ManipulationHandler>();
 
         }
 
     }
 
-    public void RoundResult(bool roundResult)
-    {
-        int numChips = betAmount / 5;
-        if (roundResult)
-        {
-            for (int i = 0; i < numChips; i++)
-            {
-                gameChips = Instantiate(gameChips, transform.position, transform.rotation);
-                gameChips.AddComponent<BoxCollider>();
-                gameChips.AddComponent<Rigidbody>();
-                gameChips.AddComponent<NearInteractionGrabbable>();
+    //public void RoundResult(bool roundResult)
+    //{
+    //    int numChips = betAmount / 5;
+    //    if (roundResult)
+    //    {
+    //        for (int i = 0; i < numChips; i++)
+    //        {
+    //            gameChips = Instantiate(gameChips, transform.position, transform.rotation);
+    //            gameChips.AddComponent<BoxCollider>();
+    //            gameChips.AddComponent<Rigidbody>();
+    //            gameChips.AddComponent<NearInteractionGrabbable>();
 
-            }
-        }
-    }
+    //        }
+    //    }
+    //}
 
 
     /// <summary>
@@ -128,7 +119,9 @@ public class GameHandler : MonoBehaviour
     }
 
     
-
+    /// <summary>
+    /// is it the initial round of the game
+    /// </summary>
     public void FirstRoundOfGame()
     {
         betAmount = System.Int16.Parse(betLabel.GetComponent<TextMeshPro>().text);
@@ -143,6 +136,9 @@ public class GameHandler : MonoBehaviour
         CheckForBlackJack();
     }
 
+    /// <summary>
+    /// method for checking a blackjack situation has occured
+    /// </summary>
     private void CheckForBlackJack()
     {
         CardValue cardInHand;
@@ -168,6 +164,12 @@ public class GameHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// method for drawing a single card from the generated deck
+    /// </summary>
+    /// <param name="spawner">card drawn</param>
+    /// <param name="spawnerPosition">postion where the drawn card will be placed on table</param>
+    /// <returns>Card</returns>
     public Card DrawOneCard(GameObject spawner, Vector3 spawnerPosition)
     {
         Debug.Log("DEAL CARD");
@@ -184,6 +186,10 @@ public class GameHandler : MonoBehaviour
         return card;
     }
 
+    /// <summary>
+    /// player draws the first card of the game.
+    /// </summary>
+    /// <param name="isFirstRound">bool to choose who goes first</param>
     [SerializeField]
     public void PlayerDrawCard(bool isFirstRound)
     {
@@ -197,7 +203,7 @@ public class GameHandler : MonoBehaviour
         {
             if (playerPoint > 21)
             {
-                PlayerLose("You are busted!");
+                PlayerLose("Value over 21!");
             }
             else if (playerPoint == 21)
             {
@@ -206,6 +212,9 @@ public class GameHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// AI dealer draws card
+    /// </summary>
     public void DealerDrawCard()
     {
         dealerSpawnerPosition.x += 0.2f;
@@ -214,6 +223,9 @@ public class GameHandler : MonoBehaviour
         dealerPoint = CalculatePoints(dealerHand);
     }
 
+    /// <summary>
+    /// Player ends their turn
+    /// </summary>
     public void PlayerEndTurn()
     {
         // Dealer draw card
@@ -239,6 +251,12 @@ public class GameHandler : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// calculates the total amount drawn
+    /// </summary>
+    /// <param name="userHand"></param>
+    /// <returns>returns sum of cards</returns>
     // TODO add situation if user get 2 aces if have time.
     private int CalculatePoints(List<Card> userHand)
     {
@@ -266,6 +284,12 @@ public class GameHandler : MonoBehaviour
         return userPoint;
     }
 
+    /// <summary>
+    /// method returning the card value
+    /// </summary>
+    /// <param name="cardVal">Value of Card</param>
+    /// <param name="exceededMax">check to see if exceeding 21</param>
+    /// <returns>returns int value of card</returns>
     private int getCardValueToAdd(CardValue cardVal, bool exceededMax)
     {
         if (cardVal == CardValue.ten
@@ -283,18 +307,30 @@ public class GameHandler : MonoBehaviour
         return (int)cardVal;
     }
 
+    /// <summary>
+    /// initialize bet slider
+    /// </summary>
+    /// <param name="activate">is sliding</param>
     private void ActivateSliderBetObjects(bool activate)
     {
         sliderBet.SetActive(activate);
         btnBet.SetActive(activate);
     }
 
+    /// <summary>
+    /// initialize bet button
+    /// </summary>
+    /// <param name="activate"></param>
     private void ActivateHitPassButtons(bool activate)
     {
         btnHit.SetActive(activate);
         btnPass.SetActive(activate);
     }
-
+    
+    /// <summary>
+    /// initialize game status
+    /// </summary>
+    /// <param name="activate"></param>
     private void ActivateGameStatus(bool activate)
     {
         btnContinue.SetActive(activate);
@@ -303,6 +339,10 @@ public class GameHandler : MonoBehaviour
 
     ////////////////////////////////////////////////// Below is undone 
 
+    /// <summary>
+    /// method for printing if player loses
+    /// </summary>
+    /// <param name="statusText"></param>
     private void PlayerLose(string statusText)
     {
         startingMoney -= betAmount;
@@ -317,6 +357,9 @@ public class GameHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// method for when player wins
+    /// </summary>
     private void PlayerWin()
     {
         string status = "Player win!";
@@ -325,6 +368,9 @@ public class GameHandler : MonoBehaviour
         DisplayGameStatus(status);
     }
 
+    /// <summary>
+    /// status when tie occurs
+    /// </summary>
     private void NoOneWin()
     {
         string status = "It's a tie!";
@@ -332,9 +378,12 @@ public class GameHandler : MonoBehaviour
         DisplayGameStatus(status);
     }
 
+    /// <summary>
+    /// method for when game is done
+    /// </summary>
     private void GameOver()
     {
-        string status = "You are BROKE!";
+        string status = "You Lose!";
 
         DisplayGameStatus(status);
 
@@ -345,6 +394,10 @@ public class GameHandler : MonoBehaviour
         );
     }
 
+    /// <summary>
+    /// method for showing status fo game
+    /// </summary>
+    /// <param name="status"></param>
     private void DisplayGameStatus(string status)
     {
         string handsInfo = playerPoint + " vs " + dealerPoint;
@@ -355,6 +408,9 @@ public class GameHandler : MonoBehaviour
         winStatusLabel.GetComponent<TextMeshPro>().text = handsInfo + "\n" + status;
     }
 
+    /// <summary>
+    /// method for destroying chips and cards in hand
+    /// </summary>
     private void DestroyCardsInHand()
     {
         var playerCards = playerCardSpawner.GetComponentsInChildren<NearInteractionGrabbable>(true);

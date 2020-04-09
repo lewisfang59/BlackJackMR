@@ -9,6 +9,10 @@ public class Chip : MonoBehaviour
     public int Point { get { return this.chipValue; } }
     public GameObject ChipPrefab { get { return this.chipPrefab; } set { this.chipPrefab = value; } }
 
+    ////// <summary>
+    ////// future implemented consturctor for creating chips
+    ////// </summary>
+    ////// <param name="chipPrefab"></param>
     //public Chip(GameObject chipPrefab)
     //{
     //    this.chipPrefab = chipPrefab;
@@ -26,47 +30,11 @@ public class Chip : MonoBehaviour
     //    this.chipValue = point;
     //}
 
+    /// <summary>
+    /// baisc method for creating chip
+    /// </summary>
     public Chip()
     {
         this.chipPrefab = null;
     }
-    //public void BetChips(int betAmount, GameObject chipPrefab)
-    //{
-    //    int numChips = betAmount / 5;
-    //    for (int i = 0; i < numChips; i++)
-    //    {
-    //        gameChips = Instantiate(chipPrefab, transform.position, transform.rotation);
-    //        gameChips.AddComponent<BoxCollider>();
-    //        gameChips.AddComponent<Rigidbody>();
-    //    }
-
-    //}
-
-    //public void RoundResult(int betAmount, bool roundResult, GameObject chipPrefab)
-    //{
-    //    int numChips = betAmount / 5;
-    //    if (roundResult)
-    //    {
-    //        for (int i = 0; i < numChips; i++)
-    //        {
-    //            gameChips = Instantiate(chipPrefab, transform.position, transform.rotation);
-    //            gameChips.AddComponent<BoxCollider>();
-    //            gameChips.AddComponent<Rigidbody>();
-    //        }
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("attempting to destroy");
-    //        //Destroy(gameObject);
-    //        Destroy(this);
-    //    }
-    //}
-    //void Start()
-    //{
-    //    BetChips(100, Resources.Load<GameObject>("ChipsPrefab/bluechip"));
-    //}
-    //void Update()
-    //{
-    //    RoundResult(100, false, Resources.Load<GameObject>("ChipsPrefab/bluechip"));
-    //}
 }

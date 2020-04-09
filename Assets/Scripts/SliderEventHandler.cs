@@ -6,7 +6,9 @@ using TMPro;
 
 public class SliderEventHandler : MonoBehaviour
 {
-    
+    /// <summary>
+    /// method for slider label updater
+    /// </summary>
     public void SliderLabelUpdater()
     {
         TextMeshPro amountLabel = GetComponentInChildren<TextMeshPro>();
