@@ -407,7 +407,7 @@ PrefabInstance:
     - target: {fileID: 4202174002042653727, guid: 755ce66638bb7384f914d9eed4ecf034,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.9830521
+      value: 0.925
       objectReference: {fileID: 0}
     - target: {fileID: 4202174002042653727, guid: 755ce66638bb7384f914d9eed4ecf034,
         type: 3}
@@ -537,7 +537,7 @@ GameObject:
   - component: {fileID: 1183428675}
   - component: {fileID: 1183428674}
   m_Layer: 0
-  m_Name: WinStatusLabel
+  m_Name: StatusLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -948,7 +948,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1726601158}
   m_Layer: 0
-  m_Name: WinStatusDialog
+  m_Name: StatusDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1242,7 +1242,7 @@ PrefabInstance:
     - target: {fileID: 4202174002042653727, guid: 755ce66638bb7384f914d9eed4ecf034,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.532052
+      value: 1.474
       objectReference: {fileID: 0}
     - target: {fileID: 4202174002042653727, guid: 755ce66638bb7384f914d9eed4ecf034,
         type: 3}
@@ -1762,7 +1762,7 @@ PrefabInstance:
         type: 3}
       propertyPath: playerStackLabel
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1926995339}
     - target: {fileID: 4197506377692585871, guid: 755ce66638bb7384f914d9eed4ecf034,
         type: 3}
       propertyPath: winStatusLabel
