@@ -5,8 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace BlackJackGameLogic
+namespace Assets.Scripts
 {
+    /// <summary>
+    /// Class that represents a deck with 52 cards.
+    /// </summary>
     class Deck
     {
         private List<Card> cards;
@@ -15,6 +18,9 @@ namespace BlackJackGameLogic
             get { return this.cards; } set { this.cards = value; } 
         }
 
+        /// <summary>
+        /// Method to print what cards are in the deck
+        /// </summary>
         public void printDeck()
         {
             for (int i = 0; i < cards.Count; i++)
@@ -23,7 +29,10 @@ namespace BlackJackGameLogic
             }
         }
 
-
+        /// <summary>
+        /// Pick a random card from deck and remove it from deck.
+        /// </summary>
+        /// <returns></returns>
         public Card DealRandomCard()
         {
             int index = UnityEngine.Random.Range(0, cards.Count - 1);
@@ -33,6 +42,9 @@ namespace BlackJackGameLogic
             return drawn;
         }
 
+        /// <summary>
+        /// Constructs a Deck object
+        /// </summary>
         public Deck(GameObject[] newDeck)
         {
             cards = new List<Card>();

@@ -1,6 +1,0 @@
-C:\Users\Flemming\Desktop\TechPro\BlackJackGameLogic\BlackJackGameLogic\bin\Debug\BlackJackGameLogic.exe.config
-C:\Users\Flemming\Desktop\TechPro\BlackJackGameLogic\BlackJackGameLogic\bin\Debug\BlackJackGameLogic.exe
-C:\Users\Flemming\Desktop\TechPro\BlackJackGameLogic\BlackJackGameLogic\bin\Debug\BlackJackGameLogic.pdb
-C:\Users\Flemming\Desktop\TechPro\BlackJackGameLogic\BlackJackGameLogic\obj\Debug\BlackJackGameLogic.csprojAssemblyReference.cache
-C:\Users\Flemming\Desktop\TechPro\BlackJackGameLogic\BlackJackGameLogic\obj\Debug\BlackJackGameLogic.exe
-C:\Users\Flemming\Desktop\TechPro\BlackJackGameLogic\BlackJackGameLogic\obj\Debug\BlackJackGameLogic.pdb

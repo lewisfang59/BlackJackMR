@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace BlackJackGameLogic
+namespace Assets.Scripts
 {
     /// <summary>
     /// enum for the types of cards that will appear. 
@@ -88,6 +88,11 @@ namespace BlackJackGameLogic
             cardPrefab = prefab;
         }
 
+        /// <summary>
+        /// Get the CardValue type from int
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public CardValue getCardValue(int value)
         {
             switch (value)

@@ -7,18 +7,20 @@ using TMPro;
 public class SliderEventHandler : MonoBehaviour
 {
     /// <summary>
-    /// method for slider label updater
+    /// Method to update slider label as user scroll the slider.
     /// </summary>
     public void SliderLabelUpdater()
     {
+        int multiplier = 100;
+
         TextMeshPro amountLabel = GetComponentInChildren<TextMeshPro>();
         PinchSlider slider = GetComponentInChildren<PinchSlider>();
 
-        double betValue = System.Math.Floor(slider.SliderValue * 100);
+        double betValue = System.Math.Floor(slider.SliderValue * multiplier);
 
         if(betValue % 5 == 0)
         {
-            amountLabel.text = System.Math.Floor(slider.SliderValue * 100).ToString();
+            amountLabel.text = System.Math.Floor(slider.SliderValue * multiplier).ToString();
         }
     }
 }

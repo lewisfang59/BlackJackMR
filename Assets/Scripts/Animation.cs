@@ -5,7 +5,6 @@ using UnityEngine;
 public class Animation : MonoBehaviour
 {
     private Animator anim;
-    private GameObject btnHit, btnPass;
     // Start is called before the first frame update
 
     /// <summary>
@@ -30,9 +29,7 @@ public class Animation : MonoBehaviour
     /// </summary>
     public void onBtnHitPress()
     {
-        Debug.Log("TEST");
         anim.SetTrigger("test");
         anim.SetTrigger("test2");
-
     }
 }

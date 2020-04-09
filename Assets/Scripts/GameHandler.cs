@@ -1,10 +1,10 @@
-﻿using BlackJackGameLogic;
-using Microsoft.MixedReality.Toolkit.Input;
+﻿using Microsoft.MixedReality.Toolkit.Input;
 using Microsoft.MixedReality.Toolkit.UI;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Assets.Scripts;
 
 public class GameHandler : MonoBehaviour
 {
@@ -14,23 +14,28 @@ public class GameHandler : MonoBehaviour
     [SerializeField]
     GameObject[] cardPrefab;
 
-    private Chip chip;
-
     private Deck deck;
     private List<Card> playerHand, dealerHand;
-    private TextMeshPro playerStackTMP;
+    private TextMeshPro playerStackLabelTMP;
     private Vector3 playerSpawnerPosition, dealerSpawnerPosition;
     private int startingMoney, playerPoint, dealerPoint, betAmount;
-    private string playerStackLabelText;
 
-    private const string stackLabelIntro = "Money $";
+    private const string STACK_LABEL_INTRO = "Money $";
+    private const string VALUE_OVER_TWENTY_ONE = "Value over 21!";
+    private const string DEALER_WIN = "Dealer win...";
+    private const string PLAYER_WIN = "Player win!";
+    private const string ITS_A_TIE = "It's a tie!";
+    private const string USER_LOSE = "Game over";
+    private const int DEALER_MIN_POINT = 17;
+    private const int MAX_POINT_AVAILABLE = 21;
+    private const int START_MONEY = 500;
+    private const int MIN_CHIP_IN_STACK = 5;
 
     private void Awake()
     {
-        startingMoney = 500;
+        startingMoney = START_MONEY;
         deck = new Deck(cardPrefab);
-        playerStackTMP = playerStackLabel.GetComponent<TextMeshPro>();
-
+        playerStackLabelTMP = playerStackLabel.GetComponent<TextMeshPro>();
     }
 
     // Start is called before the first frame update
@@ -43,29 +48,27 @@ public class GameHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if(playerStackTMP != null)
+        if(playerStackLabelTMP != null)
         {
-            playerStackTMP.text = stackLabelIntro + startingMoney.ToString();
+            playerStackLabelTMP.text = STACK_LABEL_INTRO + startingMoney.ToString();
         }
-        
-        
     }
 
     /// <summary>
-    /// determines how many chips would show up. varies depening on how much you are betting per round
+    /// determines how many chips would show up. varies depending on how much you are betting per round
     /// </summary>
     public void BetChips()
     {
         int numChips = betAmount / 5;
+        Transform chipSpawnerTransform = chipSpawner.transform;
+
         for (int i = 0; i < numChips; i++)
         {
-            GameObject bChip = Instantiate(gameChips, chipSpawner.transform.position, chipSpawner.transform.rotation, chipSpawner.transform);
+            GameObject bChip = Instantiate(gameChips, chipSpawnerTransform.position, chipSpawnerTransform.rotation, chipSpawnerTransform);
             bChip.AddComponent<BoxCollider>();
             bChip.AddComponent<Rigidbody>();
             bChip.AddComponent<NearInteractionGrabbable>();
             bChip.AddComponent<ManipulationHandler>();
-
         }
 
     }
@@ -86,7 +89,6 @@ public class GameHandler : MonoBehaviour
     //    }
     //}
 
-
     /// <summary>
     /// Reset game objects to starting state
     /// </summary>
@@ -94,10 +96,10 @@ public class GameHandler : MonoBehaviour
     {
         if(playerHand != null)
         {
-            Debug.Log("DESTROYYYYYYYYY");
             DestroyCardsInHand();
         }
 
+        // Reshuffle deck if cards running out in one deck
         if(deck.Cards.Count < 10)
         {
             deck = new Deck(cardPrefab);
@@ -120,10 +122,11 @@ public class GameHandler : MonoBehaviour
 
     
     /// <summary>
-    /// is it the initial round of the game
+    /// Is it the initial round of the game
     /// </summary>
     public void FirstRoundOfGame()
     {
+        // Gets the amount user wants to bet
         betAmount = System.Int16.Parse(betLabel.GetComponent<TextMeshPro>().text);
 
         ActivateSliderBetObjects(false);
@@ -167,13 +170,11 @@ public class GameHandler : MonoBehaviour
     /// <summary>
     /// method for drawing a single card from the generated deck
     /// </summary>
-    /// <param name="spawner">card drawn</param>
-    /// <param name="spawnerPosition">postion where the drawn card will be placed on table</param>
+    /// <param name="spawner">card spawner object (a place holder)</param>
+    /// <param name="spawnerPosition">postion where the drawn card will be placed on table, type Vector3</param>
     /// <returns>Card</returns>
     public Card DrawOneCard(GameObject spawner, Vector3 spawnerPosition)
     {
-        Debug.Log("DEAL CARD");
-
         Card card = deck.DealRandomCard();
 
         GameObject instCard = Instantiate(card.CardPrefab, spawnerPosition, spawner.transform.rotation, spawner.transform);
@@ -187,12 +188,13 @@ public class GameHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// player draws the first card of the game.
+    /// player draws one card.
     /// </summary>
-    /// <param name="isFirstRound">bool to choose who goes first</param>
+    /// <param name="isFirstRound">bool to check if it is the first round of a game</param>
     [SerializeField]
     public void PlayerDrawCard(bool isFirstRound)
     {
+        // To spawn card a bit to the top right of previous spawned card.
         playerSpawnerPosition.x += 0.2f;
         playerSpawnerPosition.z += 0.2f;
 
@@ -201,11 +203,11 @@ public class GameHandler : MonoBehaviour
 
         if(!isFirstRound)
         {
-            if (playerPoint > 21)
+            if (playerPoint > MAX_POINT_AVAILABLE)
             {
-                PlayerLose("Value over 21!");
+                PlayerLose(VALUE_OVER_TWENTY_ONE);
             }
-            else if (playerPoint == 21)
+            else if (playerPoint == MAX_POINT_AVAILABLE)
             {
                 PlayerEndTurn();
             }
@@ -217,6 +219,7 @@ public class GameHandler : MonoBehaviour
     /// </summary>
     public void DealerDrawCard()
     {
+        // To spawn card a little bit to the right of previous spawned card
         dealerSpawnerPosition.x += 0.2f;
 
         dealerHand.Add(DrawOneCard(dealerCardSpawner, dealerSpawnerPosition));
@@ -224,30 +227,31 @@ public class GameHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// Player ends their turn
+    /// Player ends their turn under the following condition
+    /// - User hit 21 after 1st round
+    /// - User hit pass button
     /// </summary>
     public void PlayerEndTurn()
     {
-        // Dealer draw card
         DealerDrawCard();
 
-        while (dealerPoint < 17)
+        while (dealerPoint < DEALER_MIN_POINT)
         {
             
             DealerDrawCard();
         }
 
-        if(dealerPoint > 21 || dealerPoint < playerPoint)
+        if(dealerPoint > MAX_POINT_AVAILABLE || dealerPoint < playerPoint)
         {
             PlayerWin();
         } 
         else if (dealerPoint > playerPoint)
         {
-            PlayerLose("Dealer wins...");
+            PlayerLose(DEALER_WIN);
         } 
         else
         {
-            NoOneWin();
+            DisplayGameStatus(ITS_A_TIE);
         }
     }
 
@@ -257,7 +261,6 @@ public class GameHandler : MonoBehaviour
     /// </summary>
     /// <param name="userHand"></param>
     /// <returns>returns sum of cards</returns>
-    // TODO add situation if user get 2 aces if have time.
     private int CalculatePoints(List<Card> userHand)
     {
         int userPoint = 0;
@@ -269,7 +272,7 @@ public class GameHandler : MonoBehaviour
             userPoint += getCardValueToAdd(cardVal, false);
         }
 
-        if(userPoint > 21)
+        if(userPoint > MAX_POINT_AVAILABLE)
         {
             userPoint = 0;
 
@@ -279,13 +282,11 @@ public class GameHandler : MonoBehaviour
             }
         }
 
-        Debug.Log(userPoint + " Point");
-
         return userPoint;
     }
 
     /// <summary>
-    /// method returning the card value
+    /// method returning the an int value corresponding to CardValue enum.
     /// </summary>
     /// <param name="cardVal">Value of Card</param>
     /// <param name="exceededMax">check to see if exceeding 21</param>
@@ -308,7 +309,7 @@ public class GameHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// initialize bet slider
+    /// Set active or inactive for slider object and bet button
     /// </summary>
     /// <param name="activate">is sliding</param>
     private void ActivateSliderBetObjects(bool activate)
@@ -318,7 +319,7 @@ public class GameHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// initialize bet button
+    /// Set active or inactive for hit and pass button
     /// </summary>
     /// <param name="activate"></param>
     private void ActivateHitPassButtons(bool activate)
@@ -326,9 +327,9 @@ public class GameHandler : MonoBehaviour
         btnHit.SetActive(activate);
         btnPass.SetActive(activate);
     }
-    
+
     /// <summary>
-    /// initialize game status
+    /// Set active or inactive for continue button and win status label
     /// </summary>
     /// <param name="activate"></param>
     private void ActivateGameStatus(bool activate)
@@ -337,17 +338,15 @@ public class GameHandler : MonoBehaviour
         winStatusLabel.SetActive(activate);
     }
 
-    ////////////////////////////////////////////////// Below is undone 
-
     /// <summary>
-    /// method for printing if player loses
+    /// Method to deal with conditions of player losing the game
     /// </summary>
     /// <param name="statusText"></param>
     private void PlayerLose(string statusText)
     {
         startingMoney -= betAmount;
 
-        if (startingMoney < 5)
+        if (startingMoney < MIN_CHIP_IN_STACK)
         {
             GameOver();
         }
@@ -358,34 +357,20 @@ public class GameHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// method for when player wins
+    /// Method to deal with conditions of player winning the game
     /// </summary>
     private void PlayerWin()
     {
-        string status = "Player win!";
         startingMoney += betAmount;
-
-        DisplayGameStatus(status);
+        DisplayGameStatus(PLAYER_WIN);
     }
 
     /// <summary>
-    /// status when tie occurs
-    /// </summary>
-    private void NoOneWin()
-    {
-        string status = "It's a tie!";
-
-        DisplayGameStatus(status);
-    }
-
-    /// <summary>
-    /// method for when game is done
+    /// method for when game is done, user have no more chips in stack.
     /// </summary>
     private void GameOver()
     {
-        string status = "You Lose!";
-
-        DisplayGameStatus(status);
+        DisplayGameStatus(USER_LOSE);
 
         btnContinue.GetComponent<Interactable>().OnClick.AddListener(delegate
         {
@@ -395,7 +380,7 @@ public class GameHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// method for showing status fo game
+    /// method for showing status for the game
     /// </summary>
     /// <param name="status"></param>
     private void DisplayGameStatus(string status)
@@ -413,6 +398,8 @@ public class GameHandler : MonoBehaviour
     /// </summary>
     private void DestroyCardsInHand()
     {
+
+        // Destroy player cards.
         var playerCards = playerCardSpawner.GetComponentsInChildren<NearInteractionGrabbable>(true);
 
         foreach(var obj in playerCards)
@@ -422,6 +409,7 @@ public class GameHandler : MonoBehaviour
             Destroy(c);
         }
 
+        // Destroy dealer cards.
         var dealerCards = dealerCardSpawner.GetComponentsInChildren<NearInteractionGrabbable>(true);
 
         foreach (var obj in dealerCards)
@@ -430,6 +418,8 @@ public class GameHandler : MonoBehaviour
 
             Destroy(c);
         }
+
+        // Destroy chips bet.
         var chips = chipSpawner.GetComponentsInChildren<NearInteractionGrabbable>(true);
 
         foreach (var obj in chips)

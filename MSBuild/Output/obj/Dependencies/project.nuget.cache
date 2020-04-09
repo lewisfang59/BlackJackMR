@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "cL102ifOdiVRlC8kAzqby0aJaw9QeTDX2H5zYIqDVPHiPNupvzURIrzpkYUPxN71zb1JBlXtGw4nnVAEe4PtQQ==",
+  "dgSpecHash": "3yCMLJfZLGJlk/LxAf939lrUiUbMhlgav2jG2cxfvhHGfMJu1S/ulI6PbXQdxULR+vpnjZK/23wUMk9VQglaFQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Flemming\\Desktop\\TechPro\\BlackJackMR\\Assets\\TechProProject.Dependencies.msb4u.csproj",
+  "projectFilePath": "F:\\workspace\\Unity\\TechProProject\\Assets\\TechProProject.Dependencies.msb4u.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Flemming\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\Flemming\\.nuget\\packages\\msbuildforunity\\0.9.1-123842\\msbuildforunity.0.9.1-123842.nupkg.sha512",
-    "C:\\Users\\Flemming\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+    "C:\\Users\\fang3\\.nuget\\packages\\microsoft.windows.mixedreality.dotnetwinrt\\0.5.1045\\microsoft.windows.mixedreality.dotnetwinrt.0.5.1045.nupkg.sha512",
+    "C:\\Users\\fang3\\.nuget\\packages\\msbuildforunity\\0.9.1-123842\\msbuildforunity.0.9.1-123842.nupkg.sha512",
+    "C:\\Users\\fang3\\.nuget\\packages\\system.drawing.primitives\\4.3.0\\system.drawing.primitives.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }
