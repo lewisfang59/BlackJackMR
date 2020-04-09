@@ -9,10 +9,12 @@ using UnityEngine.SceneManagement;
 public class GameHandler : MonoBehaviour
 {
     [SerializeField]
-    private GameObject btnHit, btnPass, btnBet, sliderBet, betLabel, playerCardSpawner, dealerCardSpawner, playerStackLabel, btnContinue, winStatusLabel;
+    private GameObject btnHit, btnPass, btnBet, sliderBet, betLabel, playerCardSpawner, dealerCardSpawner, playerStackLabel, btnContinue, winStatusLabel, gameChips, chipSpawner;
 
     [SerializeField]
     GameObject[] cardPrefab;
+
+    private Chip chip;
 
     private Deck deck;
     private List<Card> playerHand, dealerHand;
@@ -50,7 +52,50 @@ public class GameHandler : MonoBehaviour
         
     }
 
-    
+    //public void SpawnChips()
+    //{
+    //    //betAmount
+    //    chip = new Chip();
+    //    chipPrefab = Resources.Load<GameObject>("ChipPrefab/bluechip");
+    //    chip.ChipPrefab = chipPrefab;
+    //    gameObj = new GameObject();
+    //    gameObj.AddComponent(chip.ChipPrefab);
+       
+        
+    //}
+
+    public void BetChips()
+    {
+        int numChips = betAmount / 5;
+        for (int i = 0; i < numChips; i++)
+        {
+            gameChips = Instantiate(gameChips, chipSpawner.transform.position, chipSpawner.transform.rotation, chipSpawner.transform);
+            gameChips.AddComponent<BoxCollider>();
+            gameChips.AddComponent<Rigidbody>();
+            gameChips.AddComponent<NearInteractionGrabbable>();
+            gameChips.AddComponent<ManipulationHandler>();
+
+        }
+
+    }
+
+    public void RoundResult(bool roundResult)
+    {
+        int numChips = betAmount / 5;
+        if (roundResult)
+        {
+            for (int i = 0; i < numChips; i++)
+            {
+                gameChips = Instantiate(gameChips, transform.position, transform.rotation);
+                gameChips.AddComponent<BoxCollider>();
+                gameChips.AddComponent<Rigidbody>();
+                gameChips.AddComponent<NearInteractionGrabbable>();
+
+            }
+        }
+    }
+
+
     /// <summary>
     /// Reset game objects to starting state
     /// </summary>
@@ -324,6 +369,14 @@ public class GameHandler : MonoBehaviour
         var dealerCards = dealerCardSpawner.GetComponentsInChildren<NearInteractionGrabbable>(true);
 
         foreach (var obj in dealerCards)
+        {
+            GameObject c = (obj as NearInteractionGrabbable).gameObject;
+
+            Destroy(c);
+        }
+        var chips = chipSpawner.GetComponentsInChildren<NearInteractionGrabbable>(true);
+
+        foreach (var obj in chips)
         {
             GameObject c = (obj as NearInteractionGrabbable).gameObject;
 
